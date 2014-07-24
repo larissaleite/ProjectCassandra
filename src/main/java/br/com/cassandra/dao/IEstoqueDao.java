@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface IEstoqueDao {
 
-	public void salvarProduto(int nome, float preco, List<String> tags);
-	public void salvarRecebimento(int quantidade, int mes, int nomeProduto);
+	public void salvarProduto(String nome, float preco, List<String> tags);
+	public void salvarRecebimento(int quantidade, int mes, String nomeProduto);
 	public void salvarVenda(int quantidade, int mes, String nomeProduto);
 	
 	/* change return type later */

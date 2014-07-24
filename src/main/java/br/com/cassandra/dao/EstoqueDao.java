@@ -1,14 +1,16 @@
 package br.com.cassandra.dao;
 
+import java.util.Iterator;
 import java.util.List;
 
+import com.datastax.driver.core.DataType;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.eaio.uuid.UUID;
 
 public class EstoqueDao implements IEstoqueDao {
 
-	public void salvarProduto(int nome, float preco, List<String> tags) {
+	public void salvarProduto(String nome, float preco, List<String> tags) {
 		
 		UUID id_produto = new UUID();
 		
@@ -33,7 +35,7 @@ public class EstoqueDao implements IEstoqueDao {
 		String query = "INSERT INTO estoque.produtos (id, nome, preco, tags) " +
 			      "VALUES (" +
 		          ""+id_produto+"," +
-		          ""+nome+"," +
+		          "'"+nome+"'," +
 		          ""+preco+"," +
 		          ""+tagString+")" +
 		          ";";
@@ -42,13 +44,17 @@ public class EstoqueDao implements IEstoqueDao {
 		
 	}
 
-	public void salvarRecebimento(int quantidade, int mes, int nomeProduto) {
+	public void salvarRecebimento(int quantidade, int mes, String nomeProduto) {
 		
 		UUID id_recebimento = new UUID();
 		
 		/*you can only query by columns that are part of the key*/
-		ResultSet results = Configuration.getSession().execute("SELECT id FROM estoque.produtos WHERE nome="+nomeProduto+";");
-		java.util.UUID id_produto = results.all().get(0).getUUID("id");
+		ResultSet results = Configuration.getSession().execute("SELECT * FROM estoque.produtos WHERE nome='"+nomeProduto+"';");
+	
+		//java.util.UUID id_produto =  results.all().get(0).getUUID("id");
+		Iterator<Row> iterator = results.iterator();
+		Row row = iterator.next();
+		java.util.UUID id_produto = row.getUUID("id");
 		
 		String query = "INSERT INTO estoque.recebimentos (id, produto_id, quantidade, mes) " +
 			      "VALUES (" +

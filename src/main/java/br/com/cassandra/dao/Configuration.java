@@ -19,12 +19,14 @@ public class Configuration {
 		session.execute(
 			      "CREATE TABLE IF NOT EXISTS estoque.produtos (" +
 			            "id uuid," + 
-			            "nome varint," + 
+			            "nome text," + 
 			            "preco float,"+
 			            "tags set<text>," +
-			            "PRIMARY KEY(id, nome )"
+			            "PRIMARY KEY(id, nome)"
 			            + ");"
 			       );
+		
+		session.execute("CREATE INDEX produto_nome ON estoque.produtos (nome);");
 		
 			session.execute(
 			      "CREATE TABLE IF NOT EXISTS estoque.vendas (" +

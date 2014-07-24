@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 		IEstoqueDao estoqueDao = new EstoqueDao();
 		
-		/*List<String> tags1 = new ArrayList<String>();
+	 	List<String> tags1 = new ArrayList<String>();
 		tags1.add("escritorio");
 		tags1.add("eletronicos");
 		tags1.add("computador");
@@ -31,10 +31,10 @@ public class Main {
 		
 		estoqueDao.salvarRecebimento(50, 4, "Impressora");
 		
-		estoqueDao.salvarRecebimento(400, 8, "Pendrive");*/
+		estoqueDao.salvarRecebimento(400, 8, "Pen Drive");
 		
-		estoqueDao.salvarProduto(80, 50, new ArrayList<String>());
-		estoqueDao.salvarRecebimento(5, 4, 80);
+		/*estoqueDao.salvarProduto(80, 50, new ArrayList<String>());
+		estoqueDao.salvarRecebimento(5, 4, 80);*/
 		
 		
 		estoqueDao.recuperarProdutos();
